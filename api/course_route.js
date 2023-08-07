@@ -4,23 +4,10 @@ import protectApi from "../utils/protection.js";
 
 const courseRoutes = Router();
 
-//Create a post
-courseRoutes.post("/course/create", protectApi, async (req, res) => {
-  try {
-    const action = await Course.create(req.body);
-    return res.json(
-      action ? { result: true, course: action } : { result: false }
-    );
-  } catch (error) {
-    res.status(401).json({ error });
-  }
-});
-
 //Read all post
-courseRoutes.get("/course/get-course/:email", protectApi, async (req, res) => {
+courseRoutes.get("/course/get-course/", protectApi, async (req, res) => {
   try {
-    let email = req.params.email;
-    const course = await Course.find({ email });
+    const course = await Course.find();
     return res.json({ course });
   } catch (error) {
     res.status(404).json({ error });
