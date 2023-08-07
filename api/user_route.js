@@ -46,8 +46,16 @@ userRoutes.post("/user/signin", async (req, res) => {
 userRoutes.post("/user/signup", async (req, res) => {
   try {
     let obj = req.body;
+    let email = req.body.email;
+    let name = req.body.name;
     obj.password = encryptString(obj.password);
-    let action = await User.create(obj);
+    const findname = await User.find({ name });
+    if (findname.length > 0)
+      return res.json({ message: "This Name already prasent" });
+    const findEmail = await User.find({ email });
+    if (findEmail.length > 0)
+      return res.json({ message: "This Email already prasent" });
+    const action = await User.create(obj);
     let token = "";
     if (action) {
       token = jwt.sign(
@@ -65,10 +73,7 @@ userRoutes.post("/user/signup", async (req, res) => {
     };
     return res.json(responseObj);
   } catch (error) {
-    console.log(error);
-    let obj = error.keyPattern;
-    let err = Object.keys(obj)[0];
-    return res.status(403).json({ message: `This ${err} already prasent` });
+    return res.status(403).json({ error });
   }
 });
 
