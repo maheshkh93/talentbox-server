@@ -63,7 +63,7 @@ userRoutes.post("/user/signup", async (req, res) => {
           data: req.body.email,
         },
         process.env.SECRET_KEY,
-        { expiresIn: "1h" }
+        { expiresIn: "3h" }
       );
     }
     let responseObj = {
