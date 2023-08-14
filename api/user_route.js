@@ -17,7 +17,7 @@ userRoutes.post("/user/signin", async (req, res) => {
     if (isAuthenticated) {
       token = jwt.sign(
         {
-          data: req.body.name,
+          data: req.body.email,
         },
         process.env.SECRET_KEY,
         { expiresIn: "3h" }
