@@ -77,7 +77,4 @@ userRoutes.post("/user/signup", async (req, res) => {
   }
 });
 
-//update password through otp
-userRoutes.put("/user/forgot-pssword", async (req, res) => {});
-
 export default userRoutes;
